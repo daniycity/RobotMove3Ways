@@ -1,0 +1,23 @@
+{
+    "name": "robopi",
+    "description": "robopi action basic forward back right left stop",
+    "deviceTypeId": "5ff0b112994fd31b7d5e8065",
+    "capabilities": [
+      {
+        "id": "5ff0b41b994fd31b7d5e8961",
+        "mode": {
+          "instanceId": "robopi",
+          "locale": "en-US",
+          "modeName": "move",
+          "nonControllable": false,
+          "modeValues": [
+            "left",
+            "right",
+            "back",
+            "stop",
+            "forward"
+          ]
+        }
+      }
+    ]
+  }
