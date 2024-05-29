@@ -1,5 +1,6 @@
 
 from openai import OpenAI
+
 import pyttsx3
 import speech_recognition as sr
 import time
@@ -10,9 +11,11 @@ import imutils
 import os
 import base64
 from gtts import gTTS
+import serial
+from ctypes import *
 import bluetooth
 
-#Set  apikey
+#Set  apikey don't worry their fake don't work ;)
 client = OpenAI(
     api_key="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"
 )
@@ -23,6 +26,9 @@ url = "http://192.168.1.4:8080/shot.jpg"
 # Replace with bluetooth module of Arduino
 target_device = "98:d3:71:fd:45:d1"
 
+bluetoothSerial= serial.Serial("/dev/rfcomm0",baudrate=9600)
+bluetoothSerial.isOpen()
+    
 #Initialize the text-to-speech engine
 engine = pyttsx3.init()
 
@@ -48,7 +54,7 @@ def generate_response(prompt, contextForGpt):
   img_arr = np.array(bytearray(img_resp.content), dtype=np.uint8) 
   img = cv2.imdecode(img_arr, -1) 
   img = imutils.resize(img, width=1000, height=1800) 
-  path = 'C:/Users/CASA/Documents'
+  path = ''
   cv2.imwrite(os.path.join(path , 'waka.jpg'),img)
   # Getting the base64 string
   base64_image = encode_image(os.path.join(path , 'waka.jpg'))
@@ -86,27 +92,42 @@ def speak_text(text):
 
 def sendBluettothArduino(response):
   # establish a connection with the device
-  if(response.contains("CALLFUNCT(")):
+  if(response.find("CALLFUNCT(")):
+    
+    action=response[response.find("CALLFUNCT(")+len("CALLFUNCT("):response.find(")")]
+    print(f"I received to do ACTION ->{action}")
 
-    try:
-      sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-      sock.connect((target_device, 1))
+    if(action=="RIGHT") or (action=="CALLFUNC(RIGHT"):
+    # send a message over the Bluetooth socket
+        # establish a connection with the device
+        try:
+            sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+            sock.connect((target_device, 1))
 
-      action=response[response.find("CALLFUNCT(")+len("CALLFUNCT("):response.find(")")]
-      print(f"I received to do ACTION ->{action}")
+            # send a message over the Bluetooth socket
+            sock.send("right")
 
-      if(action.lower=="right"):
-        # send a message over the Bluetooth socket
-        sock.send("right")
-      if (action.lower=="left"):
-        # send a message over the Bluetooth socket
-        sock.send("left")
+            # close the Bluetooth socket
+            sock.close()
+        except bluetooth.btcommon.BluetoothError as e:
+            print("Error:", e)
+        bluetoothSerial.write(bytes("right", 'utf-8'))
+    if (action=="LEFT") or (action=="CALLFUNCT(LEFT"):
+    # send a message over the Bluetooth socket
+            # establish a connection with the device
+        try:
+            sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+            sock.connect((target_device, 1))
 
-      # close the Bluetooth socket
-      sock.close()
+            # send a message over the Bluetooth socket
+            sock.send("left")
 
-    except bluetooth.btcommon.BluetoothError as e:
-        print("Error bluetooth:", e)
+            # close the Bluetooth socket
+            sock.close()
+        except bluetooth.btcommon.BluetoothError as e:
+            print("Error:", e)
+            #bluetoothSerial.write("right")
+        bluetoothSerial.write(bytes("left", 'utf-8'))
 
 def main():
   contextForGpt="""You are a robot that answare two question:

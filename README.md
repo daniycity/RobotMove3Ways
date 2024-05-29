@@ -1,15 +1,16 @@
 
-⌚ About 3 minutes 📅 Last update 06/05/24 - ddMMYY ❓ Intermediate level
+⌚ About 1 minutes 📅 Last update 29/05/24 - ddMMYY ❓ Intermediate level
 # Index
 - [First](#first) 
 - [SecondWay](#second)
 - [ThirdWay](#third)
+- [Disclaimer](#disclaimer)
 
 ## RobotMove3Ways
 With a kit for arduino compose of a little steering robot i try to move it using an Android App, Iot with Alexa and using AI
 
 ## FirstWay <a id="first"></a>
-The idea pretty easy and straight forward i did it when i was 15 years old in school i translated the code and the app in english. With an Android app build without no code thank to [App Inventor](https://appinventor.mit.edu/) we just send bluetooth signal at the [Arduino](https://www.arduino.cc/) with some motor and electronics. The code in the arduino will just turn on and off the right pin for make the robot move!
+The idea pretty easy and straight forward i did it when i was 15 years old in school i translated the code and the app in english. With an Android app build without no code thanks to [App Inventor](https://appinventor.mit.edu/) we just send bluetooth signal at the [Arduino](https://www.arduino.cc/) with some motor and electronics. The code in the arduino will just turn on and off the right pin for make the robot move!
 I'll not explain in the detail all the code and the electric diagram i'll just link some tutorial!
 - Video [YouTube](https://www.youtube.com/watch?v=QC6TDIduhfg) 
 - [Instructable](https://www.instructables.com/Build-a-Bluetooth-Robot-W-Arduino-MIT-App-Inventor/)
@@ -43,4 +44,7 @@ When i get the CALLFUNCT as a response i know that i have to move the robot by s
 There are other library of utility for reading the response from the api. For use the smarphone camera and take the screenshot of the image. I'll try to link all the resources that i've used.
 - How to use android camera in python [GeeksForGeeks](https://www.geeksforgeeks.org/connect-your-android-phone-camera-to-opencv-python/)
 - Build an assistant with open api YouTube video [Ai Austin](https://www.youtube.com/watch?v=8z8Cobsvc9k)
+
+## Disclaimer <a id="disclaimer"></a>
+There are a lot of configuration and this repo it's not intended to be a tutorial. All the api key are just placeholder feel free to use the code as you want.
 
